@@ -27,7 +27,15 @@ router.get('/', (req, res, next) => {
 router.get('/add', (req, res, next) => {
 
     //*****************
-    res.render('/details', {title: 'Add Book'})    
+    let bookPlacehold = book({
+      "Title": "plachold",
+      "Description": "placehold desc",
+      "Price": "0.0",
+      "Author": "placehold auth",
+      "Genre": "placehold genre"
+    });
+
+    res.render('books/details', {title: 'Add Book', books: bookPlacehold})    
     //*****************
 
 });
@@ -65,7 +73,7 @@ router.get('/:id', (req, res, next) => {
     //*****************
     let id = req.params.id;
 
-    book.findById(id, (err, bookToEdit) => {
+    book.findById(id, (err, bookEdit) => {
         if(err)
         {
           console.log(err);
@@ -73,7 +81,7 @@ router.get('/:id', (req, res, next) => {
         }
         else
         {
-          res.render('/details', {title: 'Edit Book', book: bookToEdit})
+          res.render('books/details', {title: 'Edit Book', books: bookEdit})
         }
     });
     //*****************
